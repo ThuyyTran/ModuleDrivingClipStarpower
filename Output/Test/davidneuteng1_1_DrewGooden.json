@@ -1,0 +1,120 @@
+{
+    "0": {
+        "Emotion": "Neutral",
+        "StartFrame": 0,
+        "StartTime": 0,
+        "EndFrame": 900,
+        "EndTime": 30000.0,
+        "ExpectedFrames": 900,
+        "ExpectedDuration": 30000.0,
+        "Mode": "Normal",
+        "Clips": {
+            "Greene_Embarrasses_Herself_at_Hearing_DeSantis_Tries_to_OutMAGA_Trump_A_Closer_Look12_0.mp4": {
+                "Path": "Neutral/3s/Greene_Embarrasses_Herself_at_Hearing_DeSantis_Tries_to_OutMAGA_Trump_A_Closer_Look12_0.mp4",
+                "Duration": 3003.003003003004,
+                "Frames": 90
+            },
+            "Trump_Turns_on_Fox_and_Murdoch_Amid_Fallout_from_Shocking_Dominion_Lawsuit_A_Closer_Look27_0.mp4": {
+                "Path": "Neutral/2s/Trump_Turns_on_Fox_and_Murdoch_Amid_Fallout_from_Shocking_Dominion_Lawsuit_A_Closer_Look27_0.mp4",
+                "Duration": 1601.6016016016017,
+                "Frames": 48
+            },
+            "Grand_Jury_Hears_from_Key_Witness_in_Trump_Case_Trump_Rips_DeSantis_on_Fox_A_Closer_Look12_2.mp4": {
+                "Path": "Neutral/2s/Grand_Jury_Hears_from_Key_Witness_in_Trump_Case_Trump_Rips_DeSantis_on_Fox_A_Closer_Look12_2.mp4",
+                "Duration": 2002.0020020020022,
+                "Frames": 60
+            },
+            "Trump_Calls_to_Defund_FBI_and_DOJ_After_Arrest_GOP_Wants_to_Prosecute_Biden_A_Closer_Look2_15.mp4": {
+                "Path": "Neutral/2s/Trump_Calls_to_Defund_FBI_and_DOJ_After_Arrest_GOP_Wants_to_Prosecute_Biden_A_Closer_Look2_15.mp4",
+                "Duration": 1267.9346012679348,
+                "Frames": 38
+            },
+            "Biden_Orders_UFOs_Shot_Down_MTG_Says_Spy_Balloon_Couldve_Been_a_Nuke_A_Closer_Look6_3.mp4": {
+                "Path": "Neutral/2s/Biden_Orders_UFOs_Shot_Down_MTG_Says_Spy_Balloon_Couldve_Been_a_Nuke_A_Closer_Look6_3.mp4",
+                "Duration": 1301.3013013013012,
+                "Frames": 39
+            },
+            "Fox_Slams_Trump_After_Trump_Rips_DeSantis_on_Fox_in_Ongoing_GOP_Civil_War_A_Closer_Look24_12.mp4": {
+                "Path": "Neutral/2s/Fox_Slams_Trump_After_Trump_Rips_DeSantis_on_Fox_in_Ongoing_GOP_Civil_War_A_Closer_Look24_12.mp4",
+                "Duration": 1101.1011011011012,
+                "Frames": 33
+            },
+            "Dominion_Lawsuit_Reveals_Fox_and_Murdoch_Knew_Trumps_2020_Claims_Were_Lies_A_Closer_Look7_8.mp4": {
+                "Path": "Neutral/2s/Dominion_Lawsuit_Reveals_Fox_and_Murdoch_Knew_Trumps_2020_Claims_Were_Lies_A_Closer_Look7_8.mp4",
+                "Duration": 1368.0347013680348,
+                "Frames": 41
+            },
+            "Boebert_Humiliated_Over_Public_Urination_Fixation_Trump_Wants_to_Bomb_Mexico_A_Closer_Look15_1.mp4": {
+                "Path": "Neutral/3s/Boebert_Humiliated_Over_Public_Urination_Fixation_Trump_Wants_to_Bomb_Mexico_A_Closer_Look15_1.mp4",
+                "Duration": 2369.0357023690362,
+                "Frames": 71
+            },
+            "Greene_Embarrasses_Herself_at_Hearing_DeSantis_Tries_to_OutMAGA_Trump_A_Closer_Look5_0.mp4": {
+                "Path": "Neutral/1s/Greene_Embarrasses_Herself_at_Hearing_DeSantis_Tries_to_OutMAGA_Trump_A_Closer_Look5_0.mp4",
+                "Duration": 1034.3677010343677,
+                "Frames": 31
+            },
+            "Fox_Allegedly_Has_a_Secret_Dossier_of_Dirt_On_Tucker_Carlson_Amid_Messy_Split_A_Closer_Look0_9.mp4": {
+                "Path": "Neutral/2s/Fox_Allegedly_Has_a_Secret_Dossier_of_Dirt_On_Tucker_Carlson_Amid_Messy_Split_A_Closer_Look0_9.mp4",
+                "Duration": 1368.0347013680348,
+                "Frames": 41
+            },
+            "Trump_Indicted_Arrives_in_New_York_to_Face_Arrest_Fox_and_GOP_in_Hysterics_A_Closer_Look26_8.mp4": {
+                "Path": "Neutral/2s/Trump_Indicted_Arrives_in_New_York_to_Face_Arrest_Fox_and_GOP_in_Hysterics_A_Closer_Look26_8.mp4",
+                "Duration": 1568.2349015682348,
+                "Frames": 47
+            },
+            "Fox_Allegedly_Has_a_Secret_Dossier_of_Dirt_On_Tucker_Carlson_Amid_Messy_Split_A_Closer_Look0_6.mp4": {
+                "Path": "Neutral/3s/Fox_Allegedly_Has_a_Secret_Dossier_of_Dirt_On_Tucker_Carlson_Amid_Messy_Split_A_Closer_Look0_6.mp4",
+                "Duration": 2702.702702702702,
+                "Frames": 81
+            },
+            "GOP_in_Chaos_as_George_Santos_Scandal_Gets_Crazier_Greene_and_Boebert_Fight_A_Closer_Look43_2.mp4": {
+                "Path": "Neutral/2s/GOP_in_Chaos_as_George_Santos_Scandal_Gets_Crazier_Greene_and_Boebert_Fight_A_Closer_Look43_2.mp4",
+                "Duration": 1568.2349015682348,
+                "Frames": 47
+            },
+            "Trump_Rips_into_DeSantis_Kicks_Off_2024_Campaign_Lindell_Loses_RNC_Vote_A_Closer_Look17_8.mp4": {
+                "Path": "Neutral/1s/Trump_Rips_into_DeSantis_Kicks_Off_2024_Campaign_Lindell_Loses_RNC_Vote_A_Closer_Look17_8.mp4",
+                "Duration": 1001.0010010010011,
+                "Frames": 30
+            },
+            "Greene_Embarrasses_Herself_at_Hearing_DeSantis_Tries_to_OutMAGA_Trump_A_Closer_Look0_4.mp4": {
+                "Path": "Neutral/2s/Greene_Embarrasses_Herself_at_Hearing_DeSantis_Tries_to_OutMAGA_Trump_A_Closer_Look0_4.mp4",
+                "Duration": 1501.5015015015017,
+                "Frames": 45
+            },
+            "Biden_Orders_UFOs_Shot_Down_MTG_Says_Spy_Balloon_Couldve_Been_a_Nuke_A_Closer_Look5_14.mp4": {
+                "Path": "Neutral/1s/Biden_Orders_UFOs_Shot_Down_MTG_Says_Spy_Balloon_Couldve_Been_a_Nuke_A_Closer_Look5_14.mp4",
+                "Duration": 1001.0010010010011,
+                "Frames": 30
+            },
+            "Grand_Jury_Suggests_Charges_in_Trump_Election_Case_Trump_Docs_Found_on_Laptop_A_Closer_Look3_7.mp4": {
+                "Path": "Neutral/2s/Grand_Jury_Suggests_Charges_in_Trump_Election_Case_Trump_Docs_Found_on_Laptop_A_Closer_Look3_7.mp4",
+                "Duration": 2002.0020020020022,
+                "Frames": 60
+            },
+            "Greene_Melts_Down_and_GOP_Gets_Caught_Lying_During_Bidens_State_of_the_Union_A_Closer_Look1_2.mp4": {
+                "Path": "Neutral/3s/Greene_Melts_Down_and_GOP_Gets_Caught_Lying_During_Bidens_State_of_the_Union_A_Closer_Look1_2.mp4",
+                "Duration": 3470.136803470137,
+                "Frames": 104
+            }
+        },
+        "OriginalDuration": 31200.0,
+        "OriginalFrameCount": 936,
+        "ModeCut": "CUT"
+    },
+    "DetailData": {
+        "davidneuteng1_1": {
+            "Start": 0.0,
+            "Duration": 30.0,
+            "Emotion": "Neutral"
+        }
+    },
+    "dataTimeStamp": [
+        [
+            30.0,
+            "Neutral"
+        ]
+    ]
+}
