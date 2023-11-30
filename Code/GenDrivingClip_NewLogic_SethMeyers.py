@@ -18,15 +18,13 @@ from videoprops import get_audio_properties
 import time
 import random
 startTime = time.time()
-Threshold_MaxYaw  = 11
-Threshold_MaxPitch = 11
-Threshold_MaxRoll  = 11
-Threshold_MinYaw   = -11
-Threshold_MinPitch = -11
-Threshold_MinRoll =-11
+Threshold_MaxYaw  = 15
+Threshold_MaxPitch = 15
+Threshold_MaxRoll  = 15
+Threshold_MinYaw   = -15
+Threshold_MinPitch = -15
+Threshold_MinRoll =-15
 StartPoseAngle = 10
-dataStart = []
-ListErroFile = []
 def main():
     parser = argparse.ArgumentParser(description='Extract information from a sentence and save it to a file.')
     parser.add_argument('--data', type=str, help='Json data')
@@ -53,6 +51,8 @@ def main():
     config = json.load(f)
     global dataStart
     global ListErroFile
+    global BaseVideoList
+    global ListErrorStart
     if config['start_list_path'] !='':
         with open(config['start_list_path']) as json_file:
             dataStart = json.load(json_file)
@@ -63,6 +63,16 @@ def main():
             ListErroFile = [line.rstrip() for line in f]
     else:
         ListErroFile = []
+    if config['base_list_path'] !='':
+        with open(config['base_list_path']) as f:
+            BaseVideoList = [line.rstrip() for line in f]
+    else:
+        BaseVideoList = []
+    if config['base_list_path'] !='':
+        with open(config['base_list_path']) as f:
+            ListErrorStart = [line.rstrip() for line in f]
+    else:
+        ListErrorStart = []
     # ref_poses = json.load(open(os.path.join('/home/ubuntu/DrivingClipsModule/DataBase/Feature/',dataJson['influencer']+'_ref_poses.json')))
     data = pd.read_csv(config['feature_path'])
     featureClips = convertPandasToDict(data)
@@ -148,8 +158,8 @@ def filterClips(emotion_in,duration_in,featureClips,idChoosen):
         endYaw = featureClips[keyFilename]['YawEnd']
         endRoll = featureClips[keyFilename]['RollEnd']
         endPitch = featureClips[keyFilename]['PitchEnd']
-        distance1 = np.sqrt(np.power((endx_min-startx_min),2)+np.power((endy_min-starty_min),2))
-        distance2 = np.sqrt(np.power((endx_max-startx_max),2)+np.power((endy_max-starty_max),2))
+        # distance1 = np.sqrt(np.power((endx_min-startx_min),2)+np.power((endy_min-starty_min),2))
+        # distance2 = np.sqrt(np.power((endx_max-startx_max),2)+np.power((endy_max-starty_max),2))
         conditions = (MaxYaw <= Threshold_MaxYaw and MinYaw>=Threshold_MinYaw and   
                 MaxPitch<= Threshold_MaxPitch and MinPitch>= Threshold_MinPitch and 
                 MaxRoll  <= Threshold_MaxRoll and MinRoll>= Threshold_MinRoll)
@@ -160,16 +170,16 @@ def filterClips(emotion_in,duration_in,featureClips,idChoosen):
                             startRoll>=-StartPoseAngle and endYaw>=-StartPoseAngle and 
                             endPitch>=-StartPoseAngle and endRoll>=-StartPoseAngle)
         if idChoosen == 0:
-            if (distance1 <= 50 and distance2<=80 and emotion_in == emotion  and duration <= duration_in and 
+            if (emotion_in == emotion  and 
                 conditions and conditionBasePose and
-                featureClips[keyFilename]['NumberNeighborhood']>0 and ( (startYaw<=8 and startPitch<=8 and startRoll<=8))
-                 and keyFilename not in ListErroFile)or (
-                distance1 <= 50 and distance2<=80 and emotion == 'NeutralNonspeaking'  and duration <= duration_in and 
-                conditions and conditionBasePose and
-                featureClips[keyFilename]['NumberNeighborhood']>0  and ( (startYaw<=8 and startPitch<=8 and startRoll<=8)) and keyFilename not in ListErroFile):
+                featureClips[keyFilename]['NumberNeighborhood']>0 and ( (startYaw<=10 and startPitch<=10 and startRoll<=10))
+                 and keyFilename not in ListErroFile and (keyFilename in startList or keyFilename in BaseVideoList)) or (
+                emotion == 'NeutralNonspeaking'  and 
+                conditions  and
+                featureClips[keyFilename]['NumberNeighborhood']>0  and keyFilename not in ListErroFile):
                 listClips[keyFilename] = featureClips[keyFilename]
         else:
-            if (distance1 <= 50 and distance2<=80 and emotion_in == emotion  and duration <= duration_in and 
+            if (emotion_in == emotion  and 
                 conditions and conditionBasePose and
                 featureClips[keyFilename]['NumberNeighborhood']>0 and keyFilename not in ListErroFile
                 ):
@@ -238,7 +248,9 @@ def dfs(graph, node, path, current_Duration, target_Duration, deadlock, last_nod
         return None,None
     else: 
         uniqueList.append(node)
-    if current_Duration > target_Duration:
+    if current_Duration > target_Duration and node in BaseVideoList:
+        return path, (target_Duration - current_Duration,'CUT')
+    elif current_Duration > target_Duration and node not in BaseVideoList:
         return None,None
     if current_Duration == target_Duration or (target_Duration- current_Duration <=0.1):
         if node not in deadlock:
@@ -311,6 +323,7 @@ def ProcessWithBackTrack(dataTimeStamp,featureClips):
         dictDataTemp[i] = {'Visited':False,'Deadlock':[]}
     checkPose = False
     while idChosen < len(dataTimeStamp):
+        print(idChosen)
         if idChosen == 0:
             checkPose = False
         if idChosen<0:
@@ -337,63 +350,63 @@ def ProcessWithBackTrack(dataTimeStamp,featureClips):
         else:
             deadlockList = dictDataTemp[idChosen]['Deadlock']
         tmpPath = []
-        # if checkPose == False:
-        for i in range(len(data_sorted)):
-            tmpPath,cutDuration = dfs(featureClips,list(data_sorted.keys())[i],[], 0, targetDuration, deadlockList, '',[])
-            if tmpPath:
-                yawEnd, pitchEnd, rollEnd = featureClips[tmpPath[-1]]['YawEnd'],featureClips[tmpPath[-1]]['PitchEnd'],featureClips[tmpPath[-1]]['RollEnd']
-                dictDataTemp[idChosen]['YawEnd'] = yawEnd
-                dictDataTemp[idChosen]['PitchEnd'] = pitchEnd
-                dictDataTemp[idChosen]['RollEnd'] = rollEnd
-                dictDataTemp[idChosen]['IdSelected'] = i
-                dictDataTemp[idChosen]['ListSelected'] = tmpPath
-                dictDataTemp[idChosen]['Duration'] = targetDuration
-                dictDataTemp[idChosen]['Deadlock'] = deadlockList
-                dictDataTemp[idChosen]['DeadlockNext'] = []
-                dictDataTemp[idChosen]['CutDuration'] = cutDuration
+        if checkPose == False:
+            for i in range(len(data_sorted)):
+                tmpPath,cutDuration = dfs(featureClips,list(data_sorted.keys())[i],[], 0, targetDuration, deadlockList, '',[])
+                if tmpPath:
+                    yawEnd, pitchEnd, rollEnd = featureClips[tmpPath[-1]]['YawEnd'],featureClips[tmpPath[-1]]['PitchEnd'],featureClips[tmpPath[-1]]['RollEnd']
+                    dictDataTemp[idChosen]['YawEnd'] = yawEnd
+                    dictDataTemp[idChosen]['PitchEnd'] = pitchEnd
+                    dictDataTemp[idChosen]['RollEnd'] = rollEnd
+                    dictDataTemp[idChosen]['IdSelected'] = i
+                    dictDataTemp[idChosen]['ListSelected'] = tmpPath
+                    dictDataTemp[idChosen]['Duration'] = targetDuration
+                    dictDataTemp[idChosen]['Deadlock'] = deadlockList
+                    dictDataTemp[idChosen]['DeadlockNext'] = []
+                    dictDataTemp[idChosen]['CutDuration'] = cutDuration
+                    break
+            if tmpPath == None:
+                print('No solutions')
                 break
-        if tmpPath == None:
-            print('No solutions')
-            break
+            else:
+                dictDataTemp[idChosen]['DeadlockNext'] = []
+                if idChosen> backupData['BestId']:
+                    # backupData[idChosen] = {'ListSelected':tmpPath}
+                    backupData['BestId'] = idChosen
+                    backupListUnique = listUnique.copy()
+                    backupData[idChosen] = dict(dictDataTemp[idChosen])
+                if idChosen == 0:
+                    checkPose = True
         else:
-            dictDataTemp[idChosen]['DeadlockNext'] = []
-            if idChosen> backupData['BestId']:
-                # backupData[idChosen] = {'ListSelected':tmpPath}
-                backupData['BestId'] = idChosen
-                backupListUnique = listUnique.copy()
-                backupData[idChosen] = dict(dictDataTemp[idChosen])
-            if idChosen == 0:
-                checkPose = True
-        # else:
-        #     datanow = {}
-        #     for key in data_sorted.keys():
-        #         # if np.abs(data_sorted[key]['YawStart']-dictDataTemp[idChosen-1]['YawEnd'])<=10 and np.abs(data_sorted[key]['PitchStart']-dictDataTemp[idChosen-1]['PitchEnd'])<=10 and np.abs(data_sorted[key]['RollStart']-dictDataTemp[idChosen-1]['RollEnd'])<=10 and key not in dictDataTemp[idChosen-1]['DeadlockNext']:
-        #         if np.abs(data_sorted[key]['YawStart']-dictDataTemp[idChosen-1]['YawEnd'])<=10 and np.abs(data_sorted[key]['PitchStart']-dictDataTemp[idChosen-1]['PitchEnd'])<=10 and np.abs(data_sorted[key]['RollStart']-dictDataTemp[idChosen-1]['RollEnd'])<=10 and key not in dictDataTemp[idChosen-1]['DeadlockNext']:
-        #             datanow[key] = data_sorted[key]
-        #     for i in range(len(datanow)):
-        #         listUniqueFlatten = []
-        #         for idex in range(len(listUnique)):
-        #             for value in listUnique[idex]:
-        #                 listUniqueFlatten.append(value)
-        #         tmpPath,cutDuration = dfs(featureClips,list(datanow.keys())[i],[], 0, targetDuration, deadlockList, '',listUniqueFlatten)
-        #         if tmpPath:
-        #             yawEnd, pitchEnd, rollEnd = featureClips[tmpPath[-1]]['YawEnd'],featureClips[tmpPath[-1]]['PitchEnd'],featureClips[tmpPath[-1]]['RollEnd']
-        #             dictDataTemp[idChosen]['YawEnd'] = yawEnd
-        #             dictDataTemp[idChosen]['PitchEnd'] = pitchEnd
-        #             dictDataTemp[idChosen]['RollEnd'] = rollEnd
-        #             dictDataTemp[idChosen]['IdSelected'] = i
-        #             dictDataTemp[idChosen]['ListSelected'] = tmpPath
-        #             dictDataTemp[idChosen]['Duration'] = targetDuration
-        #             dictDataTemp[idChosen]['Deadlock'] = deadlockList
-        #             dictDataTemp[idChosen]['CutDuration'] = cutDuration
-        #             if 'DeadlockNext' not in list(dictDataTemp[idChosen].keys()):
-        #                 dictDataTemp[idChosen]['DeadlockNext'] = []
-        #             break
-        #         else:
-        #             if 'DeadlockNext' not in list(dictDataTemp[idChosen].keys()):
-        #                 dictDataTemp[idChosen]['DeadlockNext'] = [list(datanow.keys())[i]]
-        #             else:
-        #                 dictDataTemp[idChosen]['DeadlockNext'].append(list(datanow.keys())[i])
+            # datanow = {}
+            # for key in data_sorted.keys():
+            #     # if np.abs(data_sorted[key]['YawStart']-dictDataTemp[idChosen-1]['YawEnd'])<=10 and np.abs(data_sorted[key]['PitchStart']-dictDataTemp[idChosen-1]['PitchEnd'])<=10 and np.abs(data_sorted[key]['RollStart']-dictDataTemp[idChosen-1]['RollEnd'])<=10 and key not in dictDataTemp[idChosen-1]['DeadlockNext']:
+            #     if np.abs(data_sorted[key]['YawStart']-dictDataTemp[idChosen-1]['YawEnd'])<=10 and np.abs(data_sorted[key]['PitchStart']-dictDataTemp[idChosen-1]['PitchEnd'])<=10 and np.abs(data_sorted[key]['RollStart']-dictDataTemp[idChosen-1]['RollEnd'])<=10 and key not in dictDataTemp[idChosen-1]['DeadlockNext']:
+            #         datanow[key] = data_sorted[key]
+            for i in range(len(data_sorted)):
+                listUniqueFlatten = []
+                for idex in range(len(listUnique)):
+                    for value in listUnique[idex]:
+                        listUniqueFlatten.append(value)
+                tmpPath,cutDuration = dfs(featureClips,list(data_sorted.keys())[i],[], 0, targetDuration, deadlockList, '',listUniqueFlatten)
+                if tmpPath:
+                    yawEnd, pitchEnd, rollEnd = featureClips[tmpPath[-1]]['YawEnd'],featureClips[tmpPath[-1]]['PitchEnd'],featureClips[tmpPath[-1]]['RollEnd']
+                    dictDataTemp[idChosen]['YawEnd'] = yawEnd
+                    dictDataTemp[idChosen]['PitchEnd'] = pitchEnd
+                    dictDataTemp[idChosen]['RollEnd'] = rollEnd
+                    dictDataTemp[idChosen]['IdSelected'] = i
+                    dictDataTemp[idChosen]['ListSelected'] = tmpPath
+                    dictDataTemp[idChosen]['Duration'] = targetDuration
+                    dictDataTemp[idChosen]['Deadlock'] = deadlockList
+                    dictDataTemp[idChosen]['CutDuration'] = cutDuration
+                    if 'DeadlockNext' not in list(dictDataTemp[idChosen].keys()):
+                        dictDataTemp[idChosen]['DeadlockNext'] = []
+                    break
+                else:
+                    if 'DeadlockNext' not in list(dictDataTemp[idChosen].keys()):
+                        dictDataTemp[idChosen]['DeadlockNext'] = [list(data_sorted.keys())[i]]
+                    else:
+                        dictDataTemp[idChosen]['DeadlockNext'].append(list(data_sorted.keys())[i])
         if tmpPath:
             listUnique.append(tmpPath)
             if idChosen>backupData['BestId']:

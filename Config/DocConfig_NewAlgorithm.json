@@ -1,0 +1,8 @@
+{
+    "feature_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Doc_HopeNet15d/Feature_neighbor_15d_Doc_NewAlgorithm.csv",
+    "dataset_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Doc_HopeNet15d",
+    "size":512,
+    "start_list_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Doc_HopeNet15d/ListStartFile.Json",
+    "list_error_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Doc_HopeNet15d/ListErrorFile.txt",
+    "base_list_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Doc_HopeNet15d/Basefile.txt"
+}

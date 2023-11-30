@@ -3,5 +3,6 @@
     "dataset_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/SethMeyers_HopeNet",
     "size":512,
     "start_list_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Feature/SethMeyers_Hopenet_StartListVideo.json",
-    "list_error_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Feature/SethMeyers_Hopenet_ErrorVideoList.txt"
+    "list_error_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Feature/SethMeyers_Hopenet_ErrorVideoList.txt",
+    "base_list_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/SethMeyers_HopeNet/Basefile.txt"
 }
