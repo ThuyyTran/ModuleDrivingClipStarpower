@@ -1,0 +1,7 @@
+{
+    "feature_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Feature/SethMeyers_Hopenet_Feature_neighbor_15d.csv",
+    "dataset_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Seth_MeyersHopeNetCrop",
+    "size":512,
+    "start_list_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Feature/SethMeyers_Hopenet_StartListVideo.json",
+    "list_error_path":"/media/anlab/data-2tb/ANLAB_THUY/ModuleDrivingClipStarpower/Database/Feature/SethMeyers_Hopenet_ErrorVideoList.txt"
+}
